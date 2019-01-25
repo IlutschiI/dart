@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dart/model/player.dart';
+import 'package:dart/repository/player_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,6 +18,7 @@ class _PlayerChoiceState extends State<PlayerChoice> {
   Widget build(BuildContext context) {
     var scrollController = ScrollController();
     Timer(Duration(milliseconds: 100), () => scrollController.jumpTo(scrollController.position.maxScrollExtent));
+
     return Scaffold(
       body: Container(
         margin: EdgeInsets.all(5),
@@ -28,7 +30,9 @@ class _PlayerChoiceState extends State<PlayerChoice> {
       ),
       bottomNavigationBar: Container(
         child: RaisedButton(
-          onPressed: () {},
+          onPressed: () {
+            PlayerRepository().players = _players.where((p) => p.isSelected);
+          },
           child: Text("Let's go!"),
         ),
       ),
@@ -112,6 +116,7 @@ class _PlayerChoiceState extends State<PlayerChoice> {
     setState(() {
       _players.add(new Player(newPlayerName));
     });
+    newPlayerName = "";
   }
 
   deletePlayer(Player p) {
