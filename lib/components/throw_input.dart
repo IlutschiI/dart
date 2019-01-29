@@ -18,8 +18,8 @@ class ThrowInputState extends State<ThrowInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+    return ListView(
+      shrinkWrap: true,
       children: <Widget>[
         buildRowForDoubleAndTripple(),
         buildInputRow([1, 2, 3, 4, 5]),

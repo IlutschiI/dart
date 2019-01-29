@@ -20,42 +20,43 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        top: true,
-        child: Container(
-          child: Row(
-            children: <Widget>[
-              Flexible(
-                child: Container(
-                  child: Text("${actualRound.value}"),
-                  color: Colors.blue,
-                ),
-                flex: 1,
-                fit: FlexFit.tight,
-              ),
-              Flexible(
-                child: Container(
-                  child: Text(activePlayer.name),
-                  color: Colors.yellow,
-                ),
-                flex: 3,
-                fit: FlexFit.tight,
-              ),
-              Flexible(
-                child: Container(
-                  child: Text("${BermudaPointsCalculator().calculatePoints(activePlayer.rounds)}"),
-                  color: Colors.yellow,
-                ),
-                flex: 3,
-                fit: FlexFit.tight,
-              )
-            ],
-          ),
-        ),
+      body: ListView(
+        children: players.map((player) => buildPlayerRow(player)).toList(),
       ),
       bottomNavigationBar: ThrowInput(
         onInput: _addHit,
       ),
+    );
+  }
+
+  Widget buildPlayerRow(Player player) {
+     return Row(
+        children: <Widget>[
+          Flexible(
+            child: Container(
+              child: Text("${actualRound.value}"),
+              color: Colors.blue,
+            ),
+            flex: 1,
+            fit: FlexFit.tight,
+          ),
+          Flexible(
+            child: Container(
+              child: Text(player.name),
+              color: Colors.yellow,
+            ),
+            flex: 3,
+            fit: FlexFit.tight,
+          ),
+          Flexible(
+            child: Container(
+              child: Text("${BermudaPointsCalculator().calculatePoints(player.rounds)}"),
+              color: Colors.yellow,
+            ),
+            flex: 3,
+            fit: FlexFit.tight,
+          )
+        ],
     );
   }
 
