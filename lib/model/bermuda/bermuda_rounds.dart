@@ -22,7 +22,7 @@ class BermudaRound {
 
   get value => _value;
 
-  bool isDoubleOrTriple() {
-    return this == DOUBLE || this == TRIPLE;
+  bool isDoubleTripleBullOrDoubleBull() {
+    return this == DOUBLE || this == TRIPLE || this == BULL || this == DOUBLE_BULL;
   }
 }
