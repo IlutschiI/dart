@@ -16,6 +16,7 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
   BermudaRound actualRound;
   List<Player> players;
   Player activePlayer;
+  bool finished = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
         children: players.map((player) => buildPlayerRow(player)).toList(),
       ),
       bottomNavigationBar: ThrowInput(
-        onInput: _addHit,
+        onInput: (hit) => _addHit(hit, context),
       ),
     );
   }
@@ -90,20 +91,23 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
 
   List<Widget> buildSecondLine(Player player) {
     return player.rounds.last.hits
-        .map((hit) => Flexible(
-              child: Container(
-                child: Text("${hit.value}*${hit.times}"),
-                margin: EdgeInsets.only(right: 5),
-              ),
-            ))
+        .map((hit) =>
+        Flexible(
+          child: Container(
+            child: Text("${hit.value}*${hit.times}"),
+            margin: EdgeInsets.only(right: 5),
+          ),
+        ))
         .toList();
   }
 
-  _addHit(Hit hit) {
+  _addHit(Hit hit, BuildContext context) {
     Round round;
     bool isNewRound = false;
     bool isFirstRound = false;
-    if (activePlayer.rounds.where((round) => round.hits.length != 3).isEmpty) {
+    if (activePlayer.rounds
+        .where((round) => round.hits.length != 3)
+        .isEmpty) {
       round = new Round();
       round.bermudaRound = actualRound;
       isNewRound = true;
@@ -111,7 +115,9 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
         isFirstRound = true;
       }
     } else {
-      round = activePlayer.rounds.where((round) => round.hits.length != 3).first;
+      round = activePlayer.rounds
+          .where((round) => round.hits.length != 3)
+          .first;
     }
 
     setState(() {
@@ -121,11 +127,16 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
       }
       if (round.hits.length == 3) {
         int playerIndex = players.indexOf(activePlayer);
-        if (players.length - 1 == playerIndex) {
-          activePlayer = players.first;
-          actualRound = actualRound.nextRound;
-        } else {
-          activePlayer = players[playerIndex + 1];
+        if (round.bermudaRound == BermudaRound.DOUBLE_BULL && activePlayer == players.last) {
+          showDialog(context: context, builder: (BuildContext) => AlertDialog(content: Text("match has finished!!!"),));
+        }
+        else {
+          if (players.length - 1 == playerIndex) {
+            activePlayer = players.first;
+            actualRound = actualRound.nextRound;
+          } else {
+            activePlayer = players[playerIndex + 1];
+          }
         }
       }
     });
