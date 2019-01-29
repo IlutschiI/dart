@@ -31,7 +31,7 @@ class _PlayerChoiceState extends State<PlayerChoice> {
       bottomNavigationBar: Container(
         child: RaisedButton(
           onPressed: () {
-            PlayerRepository().players = _players.where((p) => p.isSelected);
+            PlayerRepository().players = _players.where((p) => p.isSelected).toList();
           },
           child: Text("Let's go!"),
         ),
