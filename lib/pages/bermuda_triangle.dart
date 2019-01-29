@@ -37,6 +37,7 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
           children: <Widget>[
             Flexible(
               child: Container(
+                color: activePlayer==player?Colors.green:Colors.transparent,
                 child: Text("${actualRound.value}"),
               ),
               flex: 1,
