@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:dart/model/player.dart';
+import 'package:dart/pages/bermuda_triangle.dart';
 import 'package:dart/repository/player_repository.dart';
+import 'package:dart/services/page_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -32,6 +34,8 @@ class _PlayerChoiceState extends State<PlayerChoice> {
         child: RaisedButton(
           onPressed: () {
             PlayerRepository().players = _players.where((p) => p.isSelected).toList();
+            PageNavigator().navigateWithoutAnimation(BermudaTriangle(), context);
+
           },
           child: Text("Let's go!"),
         ),

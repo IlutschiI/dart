@@ -21,4 +21,8 @@ class BermudaRound {
   BermudaRound get nextRound => _nextRound;
 
   get value => _value;
+
+  bool isDoubleOrTriple() {
+    return this == DOUBLE || this == TRIPLE;
+  }
 }
