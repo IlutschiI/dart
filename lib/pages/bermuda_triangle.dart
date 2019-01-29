@@ -31,62 +31,65 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
   }
 
   Widget buildPlayerRow(Player player) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Flexible(
-              child: Container(
-                color: activePlayer==player?Colors.green:Colors.transparent,
-                child: Text("${actualRound.value}"),
-              ),
-              flex: 1,
-              fit: FlexFit.tight,
-            ),
-            Flexible(
-              child: Container(
-                child: Text(player.name),
-              ),
-              flex: 3,
-              fit: FlexFit.tight,
-            ),
-            Flexible(
-              child: Container(
-                child: Text("${BermudaPointsCalculator().calculatePoints(player.rounds)}"),
-              ),
-              flex: 3,
-              fit: FlexFit.tight,
-            )
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Flexible(
-              child: Container(
-                child: Text(""),
-              ),
-              flex: 1,
-              fit: FlexFit.tight,
-            ),
-            Flexible(
-              child: Container(
-                child: Text(""),
-              ),
-              flex: 3,
-              fit: FlexFit.tight,
-            ),
-            Flexible(
-              child: Container(
-                child: Row(
-                  children: player.rounds.isEmpty ? [Container()] : buildSecondLine(player),
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: Container(
+                  color: activePlayer==player?Colors.green:Colors.transparent,
+                  child: Text("${actualRound.value}"),
                 ),
+                flex: 1,
+                fit: FlexFit.tight,
               ),
-              flex: 3,
-              fit: FlexFit.tight,
-            )
-          ],
-        )
-      ],
+              Flexible(
+                child: Container(
+                  child: Text(player.name),
+                ),
+                flex: 3,
+                fit: FlexFit.tight,
+              ),
+              Flexible(
+                child: Container(
+                  child: Text("${BermudaPointsCalculator().calculatePoints(player.rounds)}"),
+                ),
+                flex: 3,
+                fit: FlexFit.tight,
+              )
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: Container(
+                  child: Text(""),
+                ),
+                flex: 1,
+                fit: FlexFit.tight,
+              ),
+              Flexible(
+                child: Container(
+                  child: Text(""),
+                ),
+                flex: 3,
+                fit: FlexFit.tight,
+              ),
+              Flexible(
+                child: Container(
+                  child: Row(
+                    children: player.rounds.isEmpty ? [Container()] : buildSecondLine(player),
+                  ),
+                ),
+                flex: 3,
+                fit: FlexFit.tight,
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 
