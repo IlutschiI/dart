@@ -26,7 +26,7 @@ class ThrowInputState extends State<ThrowInput> {
         buildInputRow(List.generate(5, (index) => index + 6)),
         buildInputRow(List.generate(5, (index) => index + 11)),
         buildInputRow(List.generate(5, (index) => index + 16)),
-        buildInputRow([25, 50]),
+        buildInputRow([0, 25, 50]),
       ],
     );
   }
@@ -48,7 +48,11 @@ class ThrowInputState extends State<ThrowInput> {
   }
 
   Hit createHit(int v) {
-    return Hit(v, _times);
+    var hit = Hit(v, _times);
+    setState(() {
+      _times = 1;
+    });
+    return hit;
   }
 
   Row buildRowForDoubleAndTripple() {
