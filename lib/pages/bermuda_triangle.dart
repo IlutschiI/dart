@@ -30,34 +30,73 @@ class _BermudaTriangleState extends State<BermudaTriangle> {
   }
 
   Widget buildPlayerRow(Player player) {
-     return Row(
-        children: <Widget>[
-          Flexible(
-            child: Container(
-              child: Text("${actualRound.value}"),
-              color: Colors.blue,
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Flexible(
+              child: Container(
+                child: Text("${actualRound.value}"),
+              ),
+              flex: 1,
+              fit: FlexFit.tight,
             ),
-            flex: 1,
-            fit: FlexFit.tight,
-          ),
-          Flexible(
-            child: Container(
-              child: Text(player.name),
-              color: Colors.yellow,
+            Flexible(
+              child: Container(
+                child: Text(player.name),
+              ),
+              flex: 3,
+              fit: FlexFit.tight,
             ),
-            flex: 3,
-            fit: FlexFit.tight,
-          ),
-          Flexible(
-            child: Container(
-              child: Text("${BermudaPointsCalculator().calculatePoints(player.rounds)}"),
-              color: Colors.yellow,
+            Flexible(
+              child: Container(
+                child: Text("${BermudaPointsCalculator().calculatePoints(player.rounds)}"),
+              ),
+              flex: 3,
+              fit: FlexFit.tight,
+            )
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Flexible(
+              child: Container(
+                child: Text(""),
+              ),
+              flex: 1,
+              fit: FlexFit.tight,
             ),
-            flex: 3,
-            fit: FlexFit.tight,
-          )
-        ],
+            Flexible(
+              child: Container(
+                child: Text(""),
+              ),
+              flex: 3,
+              fit: FlexFit.tight,
+            ),
+            Flexible(
+              child: Container(
+                child: Row(
+                  children: player.rounds.isEmpty ? [Container()] : buildSecondLine(player),
+                ),
+              ),
+              flex: 3,
+              fit: FlexFit.tight,
+            )
+          ],
+        )
+      ],
     );
+  }
+
+  List<Widget> buildSecondLine(Player player) {
+    return player.rounds.last.hits
+        .map((hit) => Flexible(
+              child: Container(
+                child: Text("${hit.value}*${hit.times}"),
+                margin: EdgeInsets.only(right: 5),
+              ),
+            ))
+        .toList();
   }
 
   _addHit(Hit hit) {
